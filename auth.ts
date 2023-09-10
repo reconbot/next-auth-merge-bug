@@ -3,6 +3,8 @@ import type { NextAuthOptions as NextAuthConfig } from 'next-auth'
 import { getServerSession } from 'next-auth'
 import EmailProvider from 'next-auth/providers/email'
 import nodemailer from 'nodemailer'
+import GoogleProvider from 'next-auth/providers/google'
+import { PouchDBAdapter } from '@auth/pouchdb-adapter'
 
 // Read more at: https://next-auth.js.org/getting-started/typescript#module-augmentation
 declare module 'next-auth/jwt' {
@@ -21,6 +23,7 @@ export const config = {
       }),
     }),
   ],
+  adapter: PouchDBAdapter({}), // fake it because we don't even get this far
   callbacks: {
     async jwt({ token }) {
       token.userRole = 'admin'
